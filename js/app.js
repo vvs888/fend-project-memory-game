@@ -2,6 +2,11 @@
  * Create a list that holds all of your cards
  */
 
+ const cardContainer = document.querySelector('.deck');
+ const cards = document.querySelectorAll('.card');
+ const cardsArray = Array.from(cards);
+ const restart = document.querySelector('.fa-redo');
+
 
 /*
  * Display the cards on the page
