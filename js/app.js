@@ -30,15 +30,16 @@ function openCard() {
 	evt.target.classList.add('open', 'show');
 	let cardElParent = evt.target;
 	let cardEl = evt.target.innerHTML;
-	if(cardListInner.length === 0) {
-		cardListOuter.push(cardElParent);
-		cardListInner.push(cardEl);
-	} else if (cardListInner.length === 1) {
-		cardListOuter.push(cardElParent);
-		cardListInner.push(cardEl);
-	}
-// checking cards for coincidence
+
+// checking if cards are matched
 	function matchCards() {
+		if(cardListInner.length === 0) {
+		cardListOuter.push(cardElParent);
+		cardListInner.push(cardEl);
+		} else if (cardListInner.length === 1) {
+		cardListOuter.push(cardElParent);
+		cardListInner.push(cardEl);
+		}
 		if (cardListInner[0] === cardListInner[1]) {
 		evt.target.classList.add('match');
 		console.log(cardListInner);
@@ -51,10 +52,27 @@ function openCard() {
 		cardListInner.splice(0, 2);
 		cardListOuter.splice(0, 2);
 		console.log(openCards);
+		} else {
+			setTimeout(noMatch, 1000);
 		}
-
 	}
 	matchCards();
+
+	function noMatch() {
+		if (cardListInner[0] !== cardListInner[1] && cardListInner.length > 1) {
+		evt.target.classList.remove('show', 'open');
+		console.log(cardListInner);
+		console.log(cardListOuter);
+
+		cardListOuter.forEach(function(e) {
+			e.classList.remove('show', 'open');
+		});
+		// openCards += 2;
+		cardListInner.splice(0, 2);
+		cardListOuter.splice(0, 2);
+		console.log(openCards);
+		}
+	}
 }
 openCard();
 
@@ -78,6 +96,7 @@ return array;
 
 restart.addEventListener('click', function() {
 	showAllCards();
+	openCards = 0;
 });
 
 /*
