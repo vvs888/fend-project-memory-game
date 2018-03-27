@@ -6,6 +6,8 @@ const restart = document.querySelector('.fa-redo');
 let cardListInner = [];
 let cardListOuter = [];
 let openCards = 0;
+const modalYes = document.querySelector('.btn-primary');
+const modalNo = document.querySelector('.btn-secondary');
 
 // displaying and shuffling cards
 function showAllCards() {
@@ -52,12 +54,16 @@ function openCard() {
 		cardListInner.splice(0, 2);
 		cardListOuter.splice(0, 2);
 		console.log(openCards);
+			if(openCards === 16) {
+				$('.modal').modal('show');
+			}
 		} else {
 			setTimeout(noMatch, 1000);
 		}
 	}
 	matchCards();
 
+// checking if cards aren't matched
 	function noMatch() {
 		if (cardListInner[0] !== cardListInner[1] && cardListInner.length > 1) {
 		evt.target.classList.remove('show', 'open');
@@ -75,7 +81,6 @@ function openCard() {
 	}
 }
 openCard();
-
 });
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -93,10 +98,28 @@ while (currentIndex !== 0) {
 return array;
 }
 
+// reshuffling all cards and opening them temporarily to remember
+function restartGame() {
+	showAllCards();
+	cardsArray.forEach(function(e) {
+		e.classList.add('show', 'open');
+		setTimeout(function() {
+			e.classList.remove('show', 'open');
+		}, 5000);
+	});
+		openCards = 0;
+	}
+
 
 restart.addEventListener('click', function() {
-	showAllCards();
-	openCards = 0;
+		restartGame();
+	});
+
+
+
+modalYes.addEventListener('click', function() {
+	$('.modal').modal('hide');
+	restartGame();
 });
 
 /*
