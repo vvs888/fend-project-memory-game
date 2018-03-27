@@ -5,9 +5,11 @@ const cardsArray = Array.from(cards);
 const restart = document.querySelector('.fa-redo');
 let cardListInner = [];
 let cardListOuter = [];
+let clickedCard = [];
 let openCards = 0;
 const modalYes = document.querySelector('.btn-primary');
-const modalNo = document.querySelector('.btn-secondary');
+const move = document.querySelector('.moves');
+let modalMove = document.querySelector('.modal-body p:first-child');
 
 // displaying and shuffling cards
 function showAllCards() {
@@ -18,14 +20,17 @@ function showAllCards() {
 		e.classList.remove('show', 'open', 'match');
 	});
 	cardContainer.appendChild(fragment);
-	console.log(cardContainer);
 }
 showAllCards();
 
 cardContainer.addEventListener('click', function(evt) {
+
+// preventing false counter events if parent element was clicked
 if(evt.target.nodeName.toLowerCase() === "ul") {
 	return;
 }
+
+console.log(evt.target);
 
 // opening cards
 function openCard() {
@@ -44,16 +49,13 @@ function openCard() {
 		}
 		if (cardListInner[0] === cardListInner[1]) {
 		evt.target.classList.add('match');
-		console.log(cardListInner);
-		console.log(cardListOuter);
 
 		cardListOuter.forEach(function(e) {
 			e.classList.add('match');
 		});
 		openCards += 2;
-		cardListInner.splice(0, 2);
-		cardListOuter.splice(0, 2);
-		console.log(openCards);
+		cardListInner = [];
+		cardListOuter = [];
 			if(openCards === 16) {
 				$('.modal').modal('show');
 			}
@@ -67,21 +69,43 @@ function openCard() {
 	function noMatch() {
 		if (cardListInner[0] !== cardListInner[1] && cardListInner.length > 1) {
 		evt.target.classList.remove('show', 'open');
-		console.log(cardListInner);
-		console.log(cardListOuter);
 
 		cardListOuter.forEach(function(e) {
 			e.classList.remove('show', 'open');
 		});
-		// openCards += 2;
-		cardListInner.splice(0, 2);
-		cardListOuter.splice(0, 2);
-		console.log(openCards);
+		openCards += 2;
+		cardListInner = [];
+		cardListOuter = [];
 		}
 	}
 }
 openCard();
+
+
+function clickCard() {
+	let card = evt.target;
+	clickedCard.push(card);
+	console.log(clickedCard);
+	console.log(clickedCard.length);
+
+	function moveCounter() {
+		let	counter = 0;
+		counter += clickedCard.length / 2;
+		modalMove.textContent = "It took  " + counter.toFixed().toString() + " moves and 90 secs.";
+		move.textContent = counter.toFixed().toString();
+		console.log(modalMove);
+		console.log(counter);
+	}
+	moveCounter();
+}
+clickCard();
 });
+
+function resetCounter() {
+	clickedCard = [];
+	counter = 0;
+	move.textContent = counter.toFixed().toString();
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -103,34 +127,20 @@ function restartGame() {
 	showAllCards();
 	cardsArray.forEach(function(e) {
 		e.classList.add('show', 'open');
-		setTimeout(function() {
+		function removeClass() {
 			e.classList.remove('show', 'open');
-		}, 5000);
+		}
+		setTimeout(removeClass, 5000);
 	});
 		openCards = 0;
+		resetCounter();
 	}
-
 
 restart.addEventListener('click', function() {
 		restartGame();
 	});
 
-
-
 modalYes.addEventListener('click', function() {
 	$('.modal').modal('hide');
 	restartGame();
 });
-
-/*
-* set up the event listener for a card. If a card is clicked: !!!
-*  - display the card's symbol (put this functionality in another function that you call from this one)!!!
-*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
-*  - if the list already has another card, check to see if the two cards match
-*    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
-*    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
-*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
-*    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
-*/
-
-
