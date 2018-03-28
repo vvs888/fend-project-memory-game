@@ -10,6 +10,7 @@ let openCards = 0;
 const modalYes = document.querySelector('.btn-primary');
 const move = document.querySelector('.moves');
 let modalMove = document.querySelector('.modal-body p:first-child');
+let timerElement = document.querySelector('.timer');
 
 // displaying and shuffling cards
 function showAllCards() {
@@ -73,7 +74,6 @@ function openCard() {
 		cardListOuter.forEach(function(e) {
 			e.classList.remove('show', 'open');
 		});
-		openCards += 2;
 		cardListInner = [];
 		cardListOuter = [];
 		}
@@ -90,8 +90,8 @@ function clickCard() {
 
 	function moveCounter() {
 		let	counter = 0;
-		counter += clickedCard.length / 2;
-		modalMove.textContent = "It took  " + counter.toFixed().toString() + " moves and 90 secs.";
+		counter += clickedCard.length / 2 - 0.5;
+		modalMove.textContent = "It took  " + counter.toFixed().toString() + " moves and " + timerElement.textContent + " secs.";
 		move.textContent = counter.toFixed().toString();
 		console.log(modalMove);
 		console.log(counter);
@@ -106,6 +106,23 @@ function resetCounter() {
 	counter = 0;
 	move.textContent = counter.toFixed().toString();
 }
+
+function timer() {
+
+	let start = new Date().getTime();
+	let elapsed = '0:0';
+
+	window.setInterval(function() {
+		let time = new Date().getTime() - start;
+		elapsed = Math.floor(time / 100) / 10;
+		if(Math.round(elapsed) == elapsed) {
+			elapsed += '.0';
+		}
+		timerElement.textContent = elapsed;
+
+	}, 100);
+}
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -144,3 +161,5 @@ modalYes.addEventListener('click', function() {
 	$('.modal').modal('hide');
 	restartGame();
 });
+
+
