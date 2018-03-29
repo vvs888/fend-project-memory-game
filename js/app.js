@@ -10,7 +10,7 @@ const modalYes = document.querySelector('.btn-primary');
 const move = document.querySelector('.moves');
 let modalText = document.querySelector('.modal-body p:first-child');
 let timerElement = document.querySelector('.timer');
-const stars = document.querySelector('.stars');
+const stars = document.querySelectorAll('.stars li i');
 const starsArr = Array.from(document.querySelectorAll('.stars li i'));
 let star1 = document.querySelector('.stars li:first-child i');
 let star2 = document.querySelector('.stars li:nth-child(2) i');
@@ -43,6 +43,7 @@ function showAllCards() {
 		e.classList.remove('show', 'open', 'match');
 	});
 	cardContainer.appendChild(fragment);
+
 }
 showAllCards();
 
@@ -73,8 +74,6 @@ function openCard() {
 
 		cardListOuter.forEach(function(e) {
 			e.classList.add('match');
-
-			// console.log(e);
 		});
 		console.log(cardListOuter);
 
@@ -124,8 +123,9 @@ function clickCard() {
 			star1.classList.remove('fas');
 			star1.classList.add('far');
 		}
-		let modalStr = document.querySelector('.str');
-		modalText.textContent = "It took  " + counter.toFixed().toString() + " moves and " + timerElement.textContent + " seconds and your Star's score is ";
+		console.log(starsArr);
+
+		modalText.textContent = "It took  " + counter.toFixed().toString() + " moves and " + timerElement.textContent + " seconds and your Star's score is";
 		move.textContent = counter.toFixed().toString();
 
 		console.log(modalText);
@@ -142,6 +142,7 @@ function resetCounter() {
 	move.textContent = counter.toFixed().toString();
 }
 
+// timer function from https://www.sitepoint.com/creating-accurate-timers-in-javascript/
 function timer() {
 	let start = new Date().getTime();
 	let elapsed = '0:0';
