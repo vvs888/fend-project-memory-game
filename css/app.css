@@ -137,6 +137,15 @@ h1 {
     color: white;
 }
 
+.modal-body {
+    display: inline;
+}
+
+ul.str > li {
+    list-style: none;
+    display: inline;
+}
+
 
 /* Modal rules from bootstrap.css */
 .modal-open {
