@@ -8,13 +8,15 @@ let clickedCard = [];
 let openCards = 0;
 const modalYes = document.querySelector('.btn-primary');
 const move = document.querySelector('.moves');
-let modalMove = document.querySelector('.modal-body p:first-child');
+let modalText = document.querySelector('.modal-body p:first-child');
 let timerElement = document.querySelector('.timer');
+const stars = document.querySelector('.stars');
 const starsArr = Array.from(document.querySelectorAll('.stars li i'));
 let star1 = document.querySelector('.stars li:first-child i');
 let star2 = document.querySelector('.stars li:nth-child(2) i');
 let star3 = document.querySelector('.stars li:last-child i');
 let t;
+let modalStr = document.querySelector('.str');
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -51,8 +53,6 @@ if(evt.target.nodeName.toLowerCase() === "ul") {
 	return;
 }
 
-console.log(evt.target);
-
 // opening cards
 function openCard() {
 	evt.target.classList.add('open', 'show');
@@ -74,7 +74,7 @@ function openCard() {
 		cardListOuter.forEach(function(e) {
 			e.classList.add('match');
 
-			console.log(e);
+			// console.log(e);
 		});
 		console.log(cardListOuter);
 
@@ -110,8 +110,6 @@ openCard();
 function clickCard() {
 	let card = evt.target;
 	clickedCard.push(card);
-	console.log(clickedCard);
-	console.log(clickedCard.length);
 
 	function moveCounter() {
 		let	counter = 0;
@@ -126,11 +124,11 @@ function clickCard() {
 			star1.classList.remove('fas');
 			star1.classList.add('far');
 		}
-
-		modalMove.textContent = "It took  " + counter.toFixed().toString() + " moves and " + timerElement.textContent + " seconds and your Star's score is ";
+		let modalStr = document.querySelector('.str');
+		modalText.textContent = "It took  " + counter.toFixed().toString() + " moves and " + timerElement.textContent + " seconds and your Star's score is ";
 		move.textContent = counter.toFixed().toString();
 
-		console.log(modalMove);
+		console.log(modalText);
 		console.log(counter);
 	}
 	moveCounter();
@@ -182,6 +180,11 @@ function restartGame() {
 restart.addEventListener('click', function() {
 		restartGame();
 		setTimeout(timer, 3000);
+		if (this) {
+			stopTimer();
+		} else {
+			timer();
+		}
 	});
 
 modalYes.addEventListener('click', function() {
