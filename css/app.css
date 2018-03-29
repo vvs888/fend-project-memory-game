@@ -120,30 +120,36 @@ h1 {
     cursor: pointer;
 }
 
+/* Modal styles */
+.close {
+    border: none;
+    background-color: white;
+}
+
 .modal-title {
     font-size: 2em;
-    font-weight: 200;
-    text-align: center;
+    font-weight: 300;
+    align-content: center;
+    color: #0069D9;
+}
+
+.modal-body p:last-child {
+    color: #02ccba;
+    font-size: 1.5em;
 }
 
 .btn-primary,
 .btn-secondary {
     padding: 7px;
+    width: 50px;
+    border: none;
     border-radius: 5px;
+
 }
 
 .btn-primary {
     background-color: #0069D9;
     color: white;
-}
-
-.modal-body {
-    display: inline;
-}
-
-ul.str > li {
-    list-style: none;
-    display: inline;
 }
 
 
