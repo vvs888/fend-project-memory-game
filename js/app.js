@@ -8,13 +8,19 @@ let clickedCard = [];
 let openCards = 0;
 const modalYes = document.querySelector('.btn-primary');
 const move = document.querySelector('.moves');
-let modalText = document.querySelector('.modal-body p:first-child');
+let modalText = document.querySelector('.modal-text');
 let timerElement = document.querySelector('.timer');
 const stars = document.querySelectorAll('.stars li i');
 const starsArr = Array.from(document.querySelectorAll('.stars li i'));
 let star1 = document.querySelector('.stars li:first-child i');
 let star2 = document.querySelector('.stars li:nth-child(2) i');
 let star3 = document.querySelector('.stars li:last-child i');
+
+// cloned stars fo Modal
+let clnStar1 = star1.cloneNode();
+let clnStar2 = star2.cloneNode();
+let clnStar3 = star3.cloneNode();
+
 let t;
 let modalStr = document.querySelector('.str');
 
@@ -116,16 +122,24 @@ function clickCard() {
 		if(counter > 8 && counter <= 12) {
 			star3.classList.remove('fas');
 			star3.classList.add('far');
+			clnStar3.classList.remove('fas');
+			clnStar3.classList.add('far');
 		} else if (counter > 12 && counter <= 16) {
 			star2.classList.remove('fas');
 			star2.classList.add('far');
+			clnStar2.classList.remove('fas');
+			clnStar2.classList.add('far');
 		} else if(counter > 16) {
 			star1.classList.remove('fas');
 			star1.classList.add('far');
+			clnStar1.classList.remove('fas');
+			clnStar1.classList.add('far');
 		}
-		console.log(starsArr);
 
-		modalText.textContent = "It took  " + counter.toFixed().toString() + " moves and " + timerElement.textContent + " seconds and your Star's score is";
+		modalText.textContent = "It took  " + counter.toFixed().toString() + " moves, " + timerElement.textContent + " seconds. Your score is ";
+		modalText.appendChild(clnStar1);
+		modalText.appendChild(clnStar2);
+		modalText.appendChild(clnStar3);
 		move.textContent = counter.toFixed().toString();
 
 		console.log(modalText);
@@ -172,7 +186,7 @@ function restartGame() {
 			e.classList.remove('far');
 			e.classList.add('fas');
 		});
-		setTimeout(removeClass, 3000);
+		setTimeout(removeClass, 4000);
 	});
 		openCards = 0;
 		resetCounter();
@@ -180,7 +194,7 @@ function restartGame() {
 
 restart.addEventListener('click', function() {
 		restartGame();
-		setTimeout(timer, 3000);
+		setTimeout(timer, 4000);
 		if (this) {
 			stopTimer();
 		} else {
@@ -191,5 +205,5 @@ restart.addEventListener('click', function() {
 modalYes.addEventListener('click', function() {
 	$('.modal').modal('hide');
 	restartGame();
-	setTimeout(timer, 3000);
+	setTimeout(timer, 4000);
 });
