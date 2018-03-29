@@ -11,6 +11,12 @@ const modalYes = document.querySelector('.btn-primary');
 const move = document.querySelector('.moves');
 let modalMove = document.querySelector('.modal-body p:first-child');
 let timerElement = document.querySelector('.timer');
+const stars = document.querySelectorAll('.stars li i');
+const starsArr = Array.from(stars);
+let star1 = document.querySelector('.stars li:first-child i');
+let star2 = document.querySelector('.stars li:nth-child(2) i');
+let star3 = document.querySelector('.stars li:last-child i');
+let t;
 
 // displaying and shuffling cards
 function showAllCards() {
@@ -26,7 +32,7 @@ showAllCards();
 
 cardContainer.addEventListener('click', function(evt) {
 
-// preventing false counter events if parent element was clicked
+// preventing false counter events if parent element clicked
 if(evt.target.nodeName.toLowerCase() === "ul") {
 	return;
 }
@@ -91,8 +97,19 @@ function clickCard() {
 	function moveCounter() {
 		let	counter = 0;
 		counter += clickedCard.length / 2 - 0.5;
-		modalMove.textContent = "It took  " + counter.toFixed().toString() + " moves and " + timerElement.textContent + " secs.";
+		if(counter > 8 && counter <= 12) {
+			star3.classList.remove('fas');
+			star3.classList.add('far');
+		} else if (counter > 12 && counter <= 16) {
+			star2.classList.remove('fas');
+			star2.classList.add('far');
+		} else if(counter > 16) {
+			star1.classList.remove('fas');
+			star1.classList.add('far');
+		}
+		modalMove.textContent = "It took  " + counter.toFixed().toString() + " moves and " + timerElement.textContent + " seconds";
 		move.textContent = counter.toFixed().toString();
+
 		console.log(modalMove);
 		console.log(counter);
 	}
@@ -108,21 +125,21 @@ function resetCounter() {
 }
 
 function timer() {
-
 	let start = new Date().getTime();
 	let elapsed = '0:0';
-
-	window.setInterval(function() {
+	t = window.setInterval(function() {
 		let time = new Date().getTime() - start;
 		elapsed = Math.floor(time / 100) / 10;
 		if(Math.round(elapsed) == elapsed) {
 			elapsed += '.0';
 		}
 		timerElement.textContent = elapsed;
-
 	}, 100);
 }
 
+function stopTimer() {
+    clearInterval(t);
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -147,7 +164,14 @@ function restartGame() {
 		function removeClass() {
 			e.classList.remove('show', 'open');
 		}
+		starsArr.forEach(function(e) {
+			e.classList.remove('far');
+			e.classList.add('fas');
+		});
+
 		setTimeout(removeClass, 5000);
+		setTimeout(timer, 5000);
+
 	});
 		openCards = 0;
 		resetCounter();
@@ -161,5 +185,3 @@ modalYes.addEventListener('click', function() {
 	$('.modal').modal('hide');
 	restartGame();
 });
-
-
