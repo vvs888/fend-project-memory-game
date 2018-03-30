@@ -20,7 +20,7 @@
 
 	.deck .card.show,
 	.deck .card.match {
-		font-size: 1.5em;
+		font-size: 1.2em;
 	}
 
 	.stars,
@@ -135,7 +135,7 @@
 	}
 }
 
-@media screen and (min-width: 641px) and (max-width: 750px) {
+@media screen and (min-width: 641px) and (max-width: 767px) {
 	.modal-dialog {
    		max-width: 500px;
     	margin: 1.75rem auto;
@@ -162,7 +162,7 @@
 	}
 }
 
-@media screen and (min-width: 751px) {
+@media screen and (min-width: 768px) {
 	.modal-dialog {
     	max-width: 500px;
     	margin: 1.75rem auto;
