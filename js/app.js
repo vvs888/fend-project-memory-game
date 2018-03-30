@@ -186,6 +186,7 @@ function restartGame() {
 	});
 		openCards = 0;
 		resetCounter();
+		timerElement.textContent = "0:0";
 	}
 
 restart.addEventListener('click', function() {
