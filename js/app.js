@@ -180,7 +180,7 @@ function restartGame() {
 			e.classList.remove('far');
 			e.classList.add('fas');
 		});
-		setTimeout(removeClass, 2000);
+		setTimeout(removeClass, 1000);
 	});
 		openCards = 0;
 		resetCounter();
@@ -189,12 +189,12 @@ function restartGame() {
 
 restart.addEventListener('click', function() {
 		restartGame();
-		setTimeout(timer, 2000);
+		setTimeout(timer, 1000);
 		this ? stopTimer() : timer();
 	});
 
 modalYes.addEventListener('click', function() {
 	$('.modal').modal('hide');
 	restartGame();
-	setTimeout(timer, 2000);
+	setTimeout(timer, 1000);
 });
