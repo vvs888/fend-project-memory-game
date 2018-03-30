@@ -7,7 +7,7 @@ The game to test your memory.
 
 ##### The rules are simple:
 
-* When you start the game all cards open for 2 seconds.
+* When you start the game all cards open for 1 second.
 * Try to remember them all.
 * When cards are closed start to click on them.
 * If 2 cards match they stay opened.
