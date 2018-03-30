@@ -79,8 +79,6 @@ function openCard() {
 			if(cardListOuter[0] === cardListOuter[1]) {
 				e.classList.remove('match', 'show', 'open');
 				openCards--;
-				// counter not count 2 same cards
-				clickedCard.length -= clickedCard.length;
 				}
 		});
 		openCards += 2;
@@ -130,12 +128,7 @@ function clickCard() {
 			star2.classList.add('far');
 			clnStar2.classList.remove('fas');
 			clnStar2.classList.add('far');
-		} else if(counter > 16) {
-			star1.classList.remove('fas');
-			star1.classList.add('far');
-			clnStar1.classList.remove('fas');
-			clnStar1.classList.add('far');
-		}
+		 }
 
 		modalText.textContent = "It took  " + counter.toFixed().toString() + " moves, and " + timerElement.textContent + " seconds. Your score ";
 		modalText.appendChild(clnStar1);
