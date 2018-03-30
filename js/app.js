@@ -118,11 +118,13 @@ function clickCard() {
 	function moveCounter() {
 		let	counter = 0;
 		counter += clickedCard.length / 2 - 0.5;
+		// if more than 8 moves but less than 12, 2 stars left
 		if(counter > 8 && counter <= 12) {
 			star3.classList.remove('fas');
 			star3.classList.add('far');
 			clnStar3.classList.remove('fas');
 			clnStar3.classList.add('far');
+		// if more than 12 moves but less than 16, ones one star left
 		} else if (counter > 12 && counter <= 16) {
 			star2.classList.remove('fas');
 			star2.classList.add('far');
@@ -135,9 +137,6 @@ function clickCard() {
 		modalText.appendChild(clnStar2);
 		modalText.appendChild(clnStar3);
 		move.textContent = counter.toFixed().toString();
-
-		console.log(modalText);
-		console.log(counter);
 	}
 	moveCounter();
 }
@@ -172,7 +171,6 @@ function stopTimer() {
 function restartGame() {
 	shuffleCards();
 	cardsArr.forEach(function(e) {
-		console.log(e);
 		e.classList.add('show', 'open');
 
 		function removeClass() {
