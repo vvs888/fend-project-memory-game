@@ -89,7 +89,7 @@ function openCard() {
 				stopTimer();
 			}
 		} else {
-			setTimeout(noMatch, 600);
+			setTimeout(noMatch, 500);
 		}
 	}
 	matchCards();
@@ -113,6 +113,10 @@ openCard();
 function clickCard() {
 	let card = evt.target;
 	clickedCard.push(card);
+	// timer starts when first card clicked
+	if (clickedCard.length === 1) {
+		timer();
+	}
 
 // counter for moves, stars
 	function moveCounter() {
@@ -181,12 +185,10 @@ function restartGame() {
 
 restart.addEventListener('click', function() {
 		restartGame();
-		setTimeout(timer, 0);
-		this ? stopTimer() : timer();
+		stopTimer();
 	});
 
 modalYes.addEventListener('click', function() {
 	$('.modal').modal('hide');
 	restartGame();
-	setTimeout(timer, 0);
 });
