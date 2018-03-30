@@ -1,4 +1,4 @@
-// some useful variables
+// useful variables
 const cardContainer = document.querySelector('.deck');
 const cardsArr = Array.from(document.querySelectorAll('.card'));
 const restart = document.querySelector('.fa-redo');
@@ -15,15 +15,11 @@ const starsArr = Array.from(document.querySelectorAll('.stars li i'));
 let star1 = document.querySelector('.stars li:first-child i');
 let star2 = document.querySelector('.stars li:nth-child(2) i');
 let star3 = document.querySelector('.stars li:last-child i');
-
-// cloned stars fo Modal
+let t;
+// cloned stars for Modal
 let clnStar1 = star1.cloneNode();
 let clnStar2 = star2.cloneNode();
 let clnStar3 = star3.cloneNode();
-
-let t;
-let modalStr = document.querySelector('.str');
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -40,8 +36,8 @@ while (currentIndex !== 0) {
 return array;
 }
 
-// displaying and shuffling cards
-function showAllCards() {
+// shuffling cards
+function shuffleCards() {
 	shuffle(cardsArr);
 	let fragment = document.createDocumentFragment();
 	cardsArr.forEach(function(e) {
@@ -51,7 +47,7 @@ function showAllCards() {
 	cardContainer.appendChild(fragment);
 
 }
-showAllCards();
+shuffleCards();
 
 cardContainer.addEventListener('click', function(evt) {
 
@@ -80,8 +76,12 @@ function openCard() {
 
 		cardListOuter.forEach(function(e) {
 			e.classList.add('match');
+			// to prevent comparing the same card
+			if(cardListOuter[0] === cardListOuter[1]) {
+				e.classList.remove('match', 'show', 'open');
+				openCards--;
+			}
 		});
-		console.log(cardListOuter);
 
 		openCards += 2;
 		cardListInner = [];
@@ -91,7 +91,7 @@ function openCard() {
 				stopTimer();
 			}
 		} else {
-			setTimeout(noMatch, 1000);
+			setTimeout(noMatch, 800);
 		}
 	}
 	matchCards();
@@ -176,9 +176,11 @@ function stopTimer() {
 
 // reshuffling all cards and opening them temporarily to remember
 function restartGame() {
-	showAllCards();
+	shuffleCards();
 	cardsArr.forEach(function(e) {
+		console.log(e);
 		e.classList.add('show', 'open');
+
 		function removeClass() {
 			e.classList.remove('show', 'open');
 		}
@@ -186,7 +188,7 @@ function restartGame() {
 			e.classList.remove('far');
 			e.classList.add('fas');
 		});
-		setTimeout(removeClass, 4000);
+		setTimeout(removeClass, 2000);
 	});
 		openCards = 0;
 		resetCounter();
@@ -194,16 +196,12 @@ function restartGame() {
 
 restart.addEventListener('click', function() {
 		restartGame();
-		setTimeout(timer, 4000);
-		if (this) {
-			stopTimer();
-		} else {
-			timer();
-		}
+		setTimeout(timer, 2000);
+		this ? stopTimer() : timer();
 	});
 
 modalYes.addEventListener('click', function() {
 	$('.modal').modal('hide');
 	restartGame();
-	setTimeout(timer, 4000);
+	setTimeout(timer, 2000);
 });
