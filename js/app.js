@@ -45,7 +45,6 @@ function shuffleCards() {
 		e.classList.remove('show', 'open', 'match');
 	});
 	cardContainer.appendChild(fragment);
-
 }
 shuffleCards();
 
@@ -55,7 +54,6 @@ cardContainer.addEventListener('click', function(evt) {
 if(evt.target.nodeName.toLowerCase() === "ul") {
 	return;
 }
-
 // opening cards
 function openCard() {
 	evt.target.classList.add('open', 'show');
@@ -76,13 +74,15 @@ function openCard() {
 
 		cardListOuter.forEach(function(e) {
 			e.classList.add('match');
+
 			// to prevent comparing the same card
 			if(cardListOuter[0] === cardListOuter[1]) {
 				e.classList.remove('match', 'show', 'open');
 				openCards--;
-			}
+				// counter not count 2 same cards
+				clickedCard.length -= clickedCard.length;
+				}
 		});
-
 		openCards += 2;
 		cardListInner = [];
 		cardListOuter = [];
@@ -91,7 +91,7 @@ function openCard() {
 				stopTimer();
 			}
 		} else {
-			setTimeout(noMatch, 800);
+			setTimeout(noMatch, 600);
 		}
 	}
 	matchCards();
@@ -116,6 +116,7 @@ function clickCard() {
 	let card = evt.target;
 	clickedCard.push(card);
 
+// counter for moves, stars
 	function moveCounter() {
 		let	counter = 0;
 		counter += clickedCard.length / 2 - 0.5;
@@ -136,7 +137,7 @@ function clickCard() {
 			clnStar1.classList.add('far');
 		}
 
-		modalText.textContent = "It took  " + counter.toFixed().toString() + " moves, " + timerElement.textContent + " seconds. Your score is ";
+		modalText.textContent = "It took  " + counter.toFixed().toString() + " moves, and " + timerElement.textContent + " seconds. Your score ";
 		modalText.appendChild(clnStar1);
 		modalText.appendChild(clnStar2);
 		modalText.appendChild(clnStar3);
@@ -156,7 +157,7 @@ function resetCounter() {
 	move.textContent = counter.toFixed().toString();
 }
 
-// timer function from https://www.sitepoint.com/creating-accurate-timers-in-javascript/
+// timer functions from https://www.sitepoint.com/creating-accurate-timers-in-javascript/
 function timer() {
 	let start = new Date().getTime();
 	let elapsed = '0:0';
