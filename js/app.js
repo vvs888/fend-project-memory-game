@@ -170,18 +170,10 @@ function stopTimer() {
 // reshuffling all cards and opening them temporarily to remember
 function restartGame() {
 	shuffleCards();
-	cardsArr.forEach(function(e) {
-		e.classList.add('show', 'open');
-
-		function removeClass() {
-			e.classList.remove('show', 'open');
-		}
 		starsArr.forEach(function(e) {
 			e.classList.remove('far');
 			e.classList.add('fas');
 		});
-		setTimeout(removeClass, 1000);
-	});
 		openCards = 0;
 		resetCounter();
 		timerElement.textContent = "0:0";
@@ -189,12 +181,12 @@ function restartGame() {
 
 restart.addEventListener('click', function() {
 		restartGame();
-		setTimeout(timer, 1000);
+		setTimeout(timer, 0);
 		this ? stopTimer() : timer();
 	});
 
 modalYes.addEventListener('click', function() {
 	$('.modal').modal('hide');
 	restartGame();
-	setTimeout(timer, 1000);
+	setTimeout(timer, 0);
 });
