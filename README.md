@@ -1,20 +1,15 @@
-# Memory Game Project
+# The Memory Game
 
-## Table of Contents
+The game to test your memory.
+>
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## Directions
 
-## Instructions
+##### The rules are simple:
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+When you start the game all cards open for 2 seconds.
+Try to remember them all.
+When cards are closed start to click on them.
+If 2 cards match they stay opened.
+If not they close.
+Your task to open all pairs of cards on the table to win the game.
