@@ -24,9 +24,8 @@ No installation required. You need only web browser.
 * Your task to open all pairs of cards to win the game
 * When you start the game all cards closed
 * Game starts by clicking on first card
-* If 2 open cards matches they stay opened
-* If not they close
-* Your task to open all pairs of cards to win the game
+* If 2 open cards are matched they stay opened
+* If not, they close
 * If you click on restart button game stop, cards are reshuffling and you can start new game
 
 ## Contributing
