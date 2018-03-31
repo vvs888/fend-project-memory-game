@@ -1,4 +1,4 @@
-@media screen and (min-width: 320px) and (max-width: 450px) {
+@media screen and (min-width: 300px) and (max-width: 450px) and (min-height: 480px) and (max-height: 823px) {
 	.modal-dialog {
     	max-width: 500px;
     	margin: 1.75rem auto;
@@ -20,7 +20,11 @@
 
 	.deck .card.show,
 	.deck .card.match {
-		font-size: 1.2em;
+		font-size: 0.7em;
+	}
+
+	.deck {
+		height: 65vh;
 	}
 
 	.stars,
