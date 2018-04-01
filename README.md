@@ -1,6 +1,6 @@
 ##### This project is forked from [**Udacity fend-project-memory-game**](https://github.com/udacity/fend-project-memory-game.git)
 
-# The Memory Game
+# Vlad's Memory Game
 
 The game to test your memory.
 
