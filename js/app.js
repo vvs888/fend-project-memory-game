@@ -54,7 +54,10 @@ cardContainer.addEventListener('click', function(evt) {
 if(evt.target.nodeName.toLowerCase() === "ul") {
 	return;
 }
-console.log(evt.target);
+// preventing counter events if card's icon clicked
+else if (evt.target.nodeName.toLowerCase() === "i") {
+	return evt.target.nodeName.toLowerCase() === "ul";
+}
 // opening cards
 function openCard() {
 	evt.target.classList.add('open', 'show');
@@ -72,7 +75,6 @@ function openCard() {
 		}
 		if (cardListInner[0] === cardListInner[1]) {
 		evt.target.classList.add('match');
-
 
 		cardListOuter.forEach(function(e) {
 			e.classList.add('match');
@@ -94,7 +96,7 @@ function openCard() {
 				stopTimer();
 			}
 		} else {
-			setTimeout(noMatch, 500);
+			setTimeout(noMatch, 300);
 		}
 	}
 	matchCards();
@@ -118,7 +120,6 @@ openCard();
 function clickCard() {
 	let card = evt.target;
 	clickedCard.push(card);
-	console.log(clickedCard);
 	// timer starts when second card clicked
 
 	if (clickedCard.length === 1) {
@@ -130,7 +131,7 @@ function clickCard() {
 		let counter = 0;
 
 		// to prevent counting the same card
-		if (clickedCard[0] === clickedCard[1] && clickedCard.length % 2 === 0) {
+		if (clickedCard[0] === clickedCard[1] && clickedCard.length === 2) {
 			clickedCard.splice(0, 1);
 			console.log(clickedCard);
 		} else if (clickedCard.length > 2 && clickedCard.length % 2 === 0) {
@@ -141,7 +142,7 @@ function clickCard() {
 			}
 		}
 		counter += clickedCard.length / 2 - 0.5;
-		console.log(counter);
+
 		// if more than 8 moves but less than 12, 2 stars left
 		if(counter > 8 && counter <= 12) {
 			star3.classList.remove('fas');
@@ -160,7 +161,6 @@ function clickCard() {
 		modalText.appendChild(clnStar2);
 		modalText.appendChild(clnStar3);
 		move.textContent = counter.toFixed().toString();
-
 	}
 	moveCounter();
 }
