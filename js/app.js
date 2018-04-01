@@ -54,6 +54,7 @@ cardContainer.addEventListener('click', function(evt) {
 if(evt.target.nodeName.toLowerCase() === "ul") {
 	return;
 }
+console.log(evt.target);
 // opening cards
 function openCard() {
 	evt.target.classList.add('open', 'show');
@@ -72,18 +73,22 @@ function openCard() {
 		if (cardListInner[0] === cardListInner[1]) {
 		evt.target.classList.add('match');
 
+
 		cardListOuter.forEach(function(e) {
 			e.classList.add('match');
 
 			// to prevent comparing the same card
+			function sameTwoCards() {
 			if(cardListOuter[0] === cardListOuter[1]) {
 				e.classList.remove('match', 'show', 'open');
 				openCards--;
 				}
+			}
+			sameTwoCards()
 		});
 		openCards += 2;
-		cardListInner = [];
-		cardListOuter = [];
+		cardListInner.splice(0, 2);
+		cardListOuter.splice(0, 2);
 			if(openCards === 16) {
 				$('.modal').modal('show');
 				stopTimer();
@@ -96,14 +101,14 @@ function openCard() {
 
 // check cards aren't matched
 	function noMatch() {
-		if (cardListInner[0] !== cardListInner[1] && cardListInner.length > 1) {
+		if(cardListInner[0] !== cardListInner[1] && cardListInner.length > 1) {
 		evt.target.classList.remove('show', 'open');
 
 		cardListOuter.forEach(function(e) {
 			e.classList.remove('show', 'open');
 		});
-		cardListInner = [];
-		cardListOuter = [];
+		cardListInner.splice(0, 2);
+		cardListOuter.splice(0, 2);
 		}
 	}
 }
@@ -113,15 +118,30 @@ openCard();
 function clickCard() {
 	let card = evt.target;
 	clickedCard.push(card);
-	// timer starts when first card clicked
+	console.log(clickedCard);
+	// timer starts when second card clicked
+
 	if (clickedCard.length === 1) {
 		timer();
 	}
 
 // counter for moves, stars
 	function moveCounter() {
-		let	counter = 0;
+		let counter = 0;
+
+		// to prevent counting the same card
+		if (clickedCard[0] === clickedCard[1] && clickedCard.length % 2 === 0) {
+			clickedCard.splice(0, 1);
+			console.log(clickedCard);
+		} else if (clickedCard.length > 2 && clickedCard.length % 2 === 0) {
+
+			clickedCard.reverse();
+			if (clickedCard[0] === clickedCard[1]) {
+				clickedCard.splice(0, 2);
+			}
+		}
 		counter += clickedCard.length / 2 - 0.5;
+		console.log(counter);
 		// if more than 8 moves but less than 12, 2 stars left
 		if(counter > 8 && counter <= 12) {
 			star3.classList.remove('fas');
@@ -134,13 +154,13 @@ function clickCard() {
 			star2.classList.add('far');
 			clnStar2.classList.remove('fas');
 			clnStar2.classList.add('far');
-		 }
-
-		modalText.textContent = "It took  " + counter.toFixed().toString() + " moves, and " + timerElement.textContent + " seconds. Your score ";
+		}
+		modalText.textContent = "It took  " + counter.toString() + " moves, and " + timerElement.textContent + " seconds. Your score ";
 		modalText.appendChild(clnStar1);
 		modalText.appendChild(clnStar2);
 		modalText.appendChild(clnStar3);
 		move.textContent = counter.toFixed().toString();
+
 	}
 	moveCounter();
 }
@@ -153,7 +173,7 @@ function resetCounter() {
 	move.textContent = counter.toFixed().toString();
 }
 
-// timer functions from https://www.sitepoint.com/creating-accurate-timers-in-javascript/
+// modified for my needs timer functions from https://www.sitepoint.com/creating-accurate-timers-in-javascript/
 function timer() {
 	let start = new Date().getTime();
 	let elapsed = '0:0';
