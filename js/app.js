@@ -63,6 +63,7 @@ function openCard() {
 	evt.target.classList.add('open', 'show');
 	let cardElParent = evt.target;
 	let cardEl = evt.target.innerHTML;
+	console.log(cardElParent);
 
 // checking if cards are matched
 	function matchCards() {
@@ -120,8 +121,7 @@ openCard();
 function clickCard() {
 	let card = evt.target;
 	clickedCard.push(card);
-	// timer starts when second card clicked
-
+	// timer starts when first card clicked
 	if (clickedCard.length === 1) {
 		timer();
 	}
@@ -131,11 +131,10 @@ function clickCard() {
 		let counter = 0;
 
 		// to prevent counting the same card
-		if (clickedCard[0] === clickedCard[1] && clickedCard.length === 2) {
+		if (clickedCard[0] === clickedCard[1] && clickedCard.length % 2 === 0) {
 			clickedCard.splice(0, 1);
 			console.log(clickedCard);
 		} else if (clickedCard.length > 2 && clickedCard.length % 2 === 0) {
-
 			clickedCard.reverse();
 			if (clickedCard[0] === clickedCard[1]) {
 				clickedCard.splice(0, 2);
@@ -191,7 +190,7 @@ function stopTimer() {
     clearInterval(t);
 }
 
-// reshuffling all cards and opening them temporarily to remember
+// reshuffling all cards and reset counters
 function restartGame() {
 	shuffleCards();
 		starsArr.forEach(function(e) {
